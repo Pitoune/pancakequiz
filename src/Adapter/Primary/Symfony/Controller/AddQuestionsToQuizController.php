@@ -25,7 +25,7 @@ class AddQuestionsToQuizController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $useCase->handle($useCaseRequest);
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('quiz_show', ['token' => $token]);
         }
 
         return $this->render('quiz/add-questions.html.twig', [
