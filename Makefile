@@ -13,3 +13,6 @@ stop: ## stop containers
 
 php: ## enter the webserver container
 	$(DOCKER_COMPOSE) exec php-fpm sh
+
+mysql: ## enter the webserver container
+	$(DOCKER_COMPOSE) exec mysql sh
