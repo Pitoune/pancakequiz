@@ -23,5 +23,9 @@
         B - {{ viewModel.question.answers.B }}<br>
         C - {{ viewModel.question.answers.C }}<br>
         D - {{ viewModel.question.answers.D }}<br>
+
+        <p>
+            <a href="{{ path('game_show_score', {'token': viewModel.token}) }}">{{ 'game.show.score'|trans }}</a>
+        </p>
     {% endif %}
 {% endblock %}

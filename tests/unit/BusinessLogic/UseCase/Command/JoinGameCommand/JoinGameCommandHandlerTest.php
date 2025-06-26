@@ -9,6 +9,7 @@ use App\BusinessLogic\UseCase\Command\JoinGameCommand\JoinGameCommandRequest;
 use App\Tests\unit\Mock\Adapter\Secondary\Gateway\Repository\Doctrine\InMemoryGameRepository;
 use App\Tests\unit\Mock\Adapter\Secondary\Gateway\Repository\Doctrine\InMemoryPlayerRepository;
 use App\Tests\unit\Mock\Adapter\Secondary\Gateway\Repository\Doctrine\InMemoryQuizRepository;
+use App\Tests\unit\Mock\Adapter\Secondary\Gateway\Storage\EmptyPlayerStorage;
 use PHPUnit\Framework\TestCase;
 
 class JoinGameCommandHandlerTest extends TestCase
@@ -18,6 +19,8 @@ class JoinGameCommandHandlerTest extends TestCase
     private InMemoryGameRepository $gameRepository;
 
     private InMemoryPlayerRepository $playerRepository;
+
+    private EmptyPlayerStorage $emptyPlayerStorage;
 
     private InMemoryQuizRepository $quizRepository;
 
@@ -44,11 +47,13 @@ class JoinGameCommandHandlerTest extends TestCase
     {
         $this->gameRepository = new InMemoryGameRepository();
         $this->playerRepository = new InMemoryPlayerRepository();
+        $this->emptyPlayerStorage = new EmptyPlayerStorage();
         $this->quizRepository = new InMemoryQuizRepository();
 
         $this->joinGameCommandHandler = new JoinGameCommandHandler(
             $this->gameRepository,
             $this->playerRepository,
+            $this->emptyPlayerStorage,
         );
     }
 }

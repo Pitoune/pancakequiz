@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ viewModel.name }}</h1>
+
+    <ul>
+    {% for player in viewModel.scores %}
+        <li>{{ player.username }} - {{ player.score }}</li>
+    {% endfor %}
+    </ul>
+
+    <p>
+        <a href="{{ path('game_next_question', {'token': viewModel.token}) }}">{{ 'game.show.next_question'|trans }}</a>
+    </p>
+{% endblock %}

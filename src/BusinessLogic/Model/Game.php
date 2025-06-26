@@ -26,6 +26,9 @@ class Game
     #[OneToOne(targetEntity: 'Question', fetch: 'LAZY')]
     private ?Question $currentQuestion = null;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $lastQuestionTime = null;
+
     public function __construct(?int $id, string $token, Quiz $quiz)
     {
         $this->id = $id;
@@ -60,7 +63,18 @@ class Game
 
     public function setCurrentQuestion(?Question $currentQuestion): void
     {
+        $this->lastQuestionTime = floor(microtime(true) * 1000);
         $this->currentQuestion = $currentQuestion;
+    }
+
+    public function getLastQuestionTime(): ?int
+    {
+        return $this->lastQuestionTime;
+    }
+
+    public function setLastQuestionTime(?int $lastQuestionTime): void
+    {
+        $this->lastQuestionTime = $lastQuestionTime;
     }
 
     public function addPlayer(string $username): Player

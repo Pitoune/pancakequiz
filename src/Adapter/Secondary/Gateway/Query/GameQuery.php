@@ -38,4 +38,24 @@ class GameQuery implements GameQueryInterface
 
         return $query->getResult();
     }
+
+    public function getScoresByToken(string $token): array
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('username', 'username');
+        $rsm->addScalarResult('score', 'score', 'integer');
+
+        $query = $this->entityManager->createNativeQuery('
+            SELECT p.username AS username, p.score AS score
+            FROM game g
+            INNER JOIN player p ON p.game_id = g.id
+            WHERE g.token = ?
+            GROUP BY p.id
+            ORDER BY p.score DESC
+        ', $rsm);
+
+        $query->setParameter(1, $token);
+
+        return $query->getResult();
+    }
 }

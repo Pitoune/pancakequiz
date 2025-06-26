@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>{{ 'game.answer.username'|trans({'%username%': username}) }}</p>
+
+    <a href="{{ path('game_record_answer', {'answer': 'A'}) }}">A</a><br>
+    <br>
+    <a href="{{ path('game_record_answer', {'answer': 'B'}) }}">B</a><br>
+    <br>
+    <a href="{{ path('game_record_answer', {'answer': 'C'}) }}">C</a><br>
+    <br>
+    <a href="{{ path('game_record_answer', {'answer': 'D'}) }}">D</a><br>
+    <br>
+{% endblock %}

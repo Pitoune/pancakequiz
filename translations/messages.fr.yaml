@@ -5,4 +5,6 @@ quiz.show.game.show: Voir la partie
 game.show.questions_count: Le quiz comporte %questionsCount% questions !
 game.show.players_list: "Les joueurs et joueuses suivants sont prêts : %players%"
 game.show.join_link_message: "Voici le lien pour rejoindre la partie :"
+game.show.score: Voir les scores
 game.show.next_question: Prochaine question
+game.answer.username: Vous êtes %username%

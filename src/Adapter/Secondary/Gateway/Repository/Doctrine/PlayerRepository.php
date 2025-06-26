@@ -3,6 +3,7 @@
 namespace App\Adapter\Secondary\Gateway\Repository\Doctrine;
 
 use App\BusinessLogic\Gateway\Repository\PlayerRepositoryInterface;
+use App\BusinessLogic\Model\Game;
 use App\BusinessLogic\Model\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,5 +24,10 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
     public function get(int $id): ?Player
     {
         return $this->find($id);
+    }
+
+    public function allByGame(Game $game): array
+    {
+        return $this->findBy(['game' => $game]);
     }
 }
