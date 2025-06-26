@@ -6,6 +6,7 @@
     <p>{{ 'quiz.show.questions_count'|trans({'%questionsCount%': viewModel.questionsCount}) }}</p>
 
     {% if viewModel.gameToken %}
+        <a href="{{ path('game_show', {'token': viewModel.gameToken}) }}">{{ 'quiz.show.game.show'|trans }}</a>
     {% else %}
         <a href="{{ path('quiz_start_game', {'token': viewModel.token}) }}">{{ 'quiz.show.start_game'|trans }}</a>
     {% endif %}
