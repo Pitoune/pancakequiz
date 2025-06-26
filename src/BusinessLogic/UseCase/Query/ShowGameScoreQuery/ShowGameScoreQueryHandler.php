@@ -24,6 +24,7 @@ class ShowGameScoreQueryHandler
         $viewModel->token = $game['token'];
         $viewModel->name = $game['name'];
         $viewModel->scores = $this->gameQuery->getScoresByToken($token);
+        $viewModel->gameOver = $game['currentQuestion'] == $game['lastQuestion'];
 
         return $viewModel;
     }

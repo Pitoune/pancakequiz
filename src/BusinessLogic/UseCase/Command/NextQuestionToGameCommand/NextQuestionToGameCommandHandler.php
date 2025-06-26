@@ -24,7 +24,7 @@ class NextQuestionToGameCommandHandler
         $this->playerRepository = $playerRepository;
     }
 
-    public function handle(NextQuestionToGameCommandRequest $request): void
+    public function handle(NextQuestionToGameCommandRequest $request): bool
     {
         $game = $this->gameRepository->getByToken($request->gameToken);
         $questions = $this->questionRepository->allByGame($game);
@@ -39,24 +39,20 @@ class NextQuestionToGameCommandHandler
         if (null === $question) {
             $firstQuestion = reset($questions);
             $game->setCurrentQuestion($firstQuestion);
-
             $this->gameRepository->save($game);
 
-            return;
+            return true;
         }
 
-        $next = false;
         foreach ($questions as $quest) {
-            if ($next) {
+            if ($quest->getId() > $question->getId()) {
                 $game->setCurrentQuestion($quest);
+                $this->gameRepository->save($game);
 
-                return;
+                return true;
             }
-
-            if ($quest !== $question) {
-                continue;
-            }
-            $next = true;
         }
+
+        return false;
     }
 }

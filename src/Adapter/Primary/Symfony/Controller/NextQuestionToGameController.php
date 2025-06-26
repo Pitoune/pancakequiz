@@ -19,8 +19,13 @@ class NextQuestionToGameController extends AbstractController
         string $token,
     ): RedirectResponse {
         $useCaseRequest->gameToken = $token;
-        $useCase->handle($useCaseRequest);
+        $nextQuestion = $useCase->handle($useCaseRequest);
 
-        return $this->redirectToRoute('game_show', ['token' => $token]);
+        $route = 'game_show';
+        if (!$nextQuestion) {
+            $route = 'game_show_score';
+        }
+
+        return $this->redirectToRoute($route, ['token' => $token]);
     }
 }

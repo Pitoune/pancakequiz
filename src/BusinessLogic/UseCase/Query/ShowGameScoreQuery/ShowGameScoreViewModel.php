@@ -9,4 +9,6 @@ class ShowGameScoreViewModel
     public string $name;
 
     public array $scores = [];
+
+    public bool $gameOver;
 }

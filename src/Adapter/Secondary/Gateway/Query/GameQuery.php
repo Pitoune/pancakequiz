@@ -23,9 +23,10 @@ class GameQuery implements GameQueryInterface
         $rsm->addScalarResult('questionsCount', 'questionsCount', 'integer');
         $rsm->addScalarResult('players', 'players');
         $rsm->addScalarResult('currentQuestion', 'currentQuestion', 'integer');
+        $rsm->addScalarResult('lastQuestion', 'lastQuestion', 'integer');
 
         $query = $this->entityManager->createNativeQuery('
-            SELECT g.token AS token, q.name AS name, COUNT(qs.id) AS questionsCount, GROUP_CONCAT(DISTINCT p.username) AS players, g.current_question_id AS currentQuestion
+            SELECT g.token AS token, q.name AS name, COUNT(qs.id) AS questionsCount, GROUP_CONCAT(DISTINCT p.username) AS players, g.current_question_id AS currentQuestion, MAX(qs.id) AS lastQuestion
             FROM game g
             INNER JOIN quiz q ON g.quiz_id = q.id
             LEFT JOIN question qs ON q.id = qs.quiz_id

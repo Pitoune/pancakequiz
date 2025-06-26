@@ -26,7 +26,7 @@ class Game
     #[OneToOne(targetEntity: 'Question', fetch: 'LAZY')]
     private ?Question $currentQuestion = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'bigint', nullable: true)]
     private ?int $lastQuestionTime = null;
 
     public function __construct(?int $id, string $token, Quiz $quiz)

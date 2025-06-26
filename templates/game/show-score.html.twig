@@ -9,7 +9,11 @@
     {% endfor %}
     </ul>
 
+    {% if viewModel.gameOver %}
+        <p>{{ 'game.show_score.game_over'|trans }}</p>
+    {% else %}
     <p>
         <a href="{{ path('game_next_question', {'token': viewModel.token}) }}">{{ 'game.show.next_question'|trans }}</a>
     </p>
+    {% endif %}
 {% endblock %}
