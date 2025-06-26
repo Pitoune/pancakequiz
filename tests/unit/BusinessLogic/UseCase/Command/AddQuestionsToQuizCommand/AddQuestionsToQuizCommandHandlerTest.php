@@ -2,8 +2,6 @@
 
 namespace App\Tests\unit\BusinessLogic\UseCase\Command\AddQuestionsToQuizCommand;
 
-use App\BusinessLogic\Gateway\Repository\QuestionRepositoryInterface;
-use App\BusinessLogic\Gateway\Repository\QuizRepositoryInterface;
 use App\BusinessLogic\Model\Quiz;
 use App\BusinessLogic\UseCase\Command\AddQuestionsToQuizCommand\AddQuestionsToQuizCommandHandler;
 use App\BusinessLogic\UseCase\Command\AddQuestionsToQuizCommand\AddQuestionsToQuizCommandRequest;
@@ -15,9 +13,9 @@ class AddQuestionsToQuizCommandHandlerTest extends TestCase
 {
     private AddQuestionsToQuizCommandHandler $addQuestionsToQuizCommandHandler;
 
-    private QuizRepositoryInterface $quizRepository;
+    private InMemoryQuizRepository $quizRepository;
 
-    private QuestionRepositoryInterface $questionRepository;
+    private InMemoryQuestionRepository $questionRepository;
 
     public function testAddOneQuestionToQuiz(): void
     {

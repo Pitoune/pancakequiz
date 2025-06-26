@@ -4,5 +4,5 @@ namespace App\BusinessLogic\Gateway\Query;
 
 interface QuizQueryInterface
 {
-    public function getWithQuestionsCount(string $token): array;
+    public function getByToken(string $token): array;
 }

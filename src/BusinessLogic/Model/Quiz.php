@@ -61,4 +61,9 @@ class Quiz
     {
         return Question::create($this, $question, $correctAnswer, $wrongAnswer1, $wrongAnswer2, $wrongAnswer3);
     }
+
+    public function addGame(string $token): Game
+    {
+        return Game::create($token, $this);
+    }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Tests\unit\BusinessLogic\UseCase\Command\CreateQuizzCommand;
 
-use App\BusinessLogic\Gateway\Provider\StringProviderInterface;
-use App\BusinessLogic\Gateway\Repository\QuizRepositoryInterface;
 use App\BusinessLogic\UseCase\Command\CreateQuizzCommand\CreateQuizCommandHandler;
 use App\BusinessLogic\UseCase\Command\CreateQuizzCommand\CreateQuizCommandRequest;
 use App\Tests\unit\Mock\Adapter\Secondary\Gateway\Provider\DeterministicStringProvider;
@@ -14,9 +12,9 @@ class CreateQuizCommandHandlerTest extends TestCase
 {
     private CreateQuizCommandHandler $createQuizCommandHandler;
 
-    private QuizRepositoryInterface $quizRepository;
+    private InMemoryQuizRepository $quizRepository;
 
-    private StringProviderInterface $stringProvider;
+    private DeterministicStringProvider $stringProvider;
 
     public function testCreateQuiz(): void
     {

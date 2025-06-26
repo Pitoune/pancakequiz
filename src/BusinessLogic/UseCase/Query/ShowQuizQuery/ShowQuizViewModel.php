@@ -9,4 +9,6 @@ class ShowQuizViewModel
     public string $name;
 
     public int $questionsCount;
+
+    public ?string $gameToken = null;
 }

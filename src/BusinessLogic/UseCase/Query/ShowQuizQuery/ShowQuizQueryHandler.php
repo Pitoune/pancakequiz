@@ -15,13 +15,14 @@ class ShowQuizQueryHandler
 
     public function handle(string $token): ShowQuizViewModel
     {
-        $results = $this->quizQuery->getWithQuestionsCount($token);
+        $results = $this->quizQuery->getByToken($token);
         $quiz = reset($results);
 
         $viewModel = new ShowQuizViewModel();
         $viewModel->token = $quiz['token'];
         $viewModel->name = $quiz['name'];
         $viewModel->questionsCount = $quiz['questionsCount'];
+        $viewModel->gameToken = $quiz['gameToken'];
 
         return $viewModel;
     }
