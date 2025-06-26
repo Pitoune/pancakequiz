@@ -13,7 +13,6 @@ class Quiz
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    /** @phpstan-ignore property.onlyRead */
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
@@ -25,7 +24,7 @@ class Quiz
     #[ORM\Column(type: 'integer')]
     private int $questionsPerParticipant;
 
-    private function __construct(?int $id, string $token, string $name, int $questionsPerParticipant)
+    public function __construct(?int $id, string $token, string $name, int $questionsPerParticipant)
     {
         $this->id = $id;
         $this->token = $token;
@@ -56,5 +55,10 @@ class Quiz
     public function getQuestionsPerParticipant(): int
     {
         return $this->questionsPerParticipant;
+    }
+
+    public function addQuestion(string $question, string $correctAnswer, string $wrongAnswer1, string $wrongAnswer2, string $wrongAnswer3): Question
+    {
+        return Question::create($this, $question, $correctAnswer, $wrongAnswer1, $wrongAnswer2, $wrongAnswer3);
     }
 }

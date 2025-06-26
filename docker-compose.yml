@@ -31,11 +31,5 @@ services:
     ports:
       - 3306:3306
 
-  mailcatcher:
-    image: yappabe/mailcatcher
-    ports:
-      - "1025:1025"
-      - "1080:1080"
-
 volumes:
   database_data:

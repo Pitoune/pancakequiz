@@ -24,4 +24,9 @@ class QuizRepository extends ServiceEntityRepository implements QuizRepositoryIn
     {
         return $this->find($id);
     }
+
+    public function getOneByToken(string $token): ?Quiz
+    {
+        return $this->findOneBy(['token' => $token]);
+    }
 }

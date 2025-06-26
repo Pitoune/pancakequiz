@@ -18,10 +18,12 @@ class CreateQuizCommandHandler
         $this->stringProvider = $stringProvider;
     }
 
-    public function handle(CreateQuizCommandRequest $request): void
+    public function handle(CreateQuizCommandRequest $request): Quiz
     {
         $token = $this->stringProvider->random(20);
         $quiz = Quiz::create($token, $request->name, $request->questionsPerParticipant);
         $this->quizRepository->save($quiz);
+
+        return $quiz;
     }
 }

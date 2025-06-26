@@ -20,4 +20,15 @@ class InMemoryQuizRepository implements QuizRepositoryInterface
     {
         return $this->quiz[$id] ?? null;
     }
+
+    public function getOneByToken(string $token): ?Quiz
+    {
+        foreach ($this->quiz as $quiz) {
+            if ($quiz->getToken() === $token) {
+                return $quiz;
+            }
+        }
+
+        return null;
+    }
 }

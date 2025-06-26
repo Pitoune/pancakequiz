@@ -12,15 +12,17 @@ use Symfony\Component\Routing\Attribute\Route;
 class CreateQuizController extends AbstractController
 {
     #[Route('/{_locale}/quiz/create', name: 'quiz_create', methods: ['GET', 'POST'])]
-    public function __invoke(Request $request, CreateQuizCommandHandler $useCase): Response
-    {
+    public function __invoke(
+        CreateQuizCommandHandler $useCase,
+        Request $request,
+    ): Response {
         $form = $this->createForm(CreateQuizType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $useCase->handle($form->getData());
+            $quiz = $useCase->handle($form->getData());
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('quiz_add_questions', ['token' => $quiz->getToken()]);
         }
 
         return $this->render('quiz/create.html.twig', [

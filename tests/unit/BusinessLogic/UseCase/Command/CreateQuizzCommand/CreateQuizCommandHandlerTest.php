@@ -23,7 +23,6 @@ class CreateQuizCommandHandlerTest extends TestCase
         $request = new CreateQuizCommandRequest();
         $request->name = 'Quiz number 1';
         $request->questionsPerParticipant = 4;
-        $request->participants = 'pierre@pancake.com, lucie@pancake.com';
 
         $this->createQuizCommandHandler->handle($request);
 
