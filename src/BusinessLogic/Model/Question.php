@@ -25,49 +25,35 @@ class Question
     #[ORM\Column(type: 'string')]
     private string $correctAnswer;
 
-    #[ORM\Column(type: 'string')]
-    private string $wrongAnswer1;
-
-    #[ORM\Column(type: 'string')]
-    private string $wrongAnswer2;
-
-    #[ORM\Column(type: 'string')]
-    private string $wrongAnswer3;
+    #[ORM\Column(type: 'json')]
+    private array $answers;
 
     public function __construct(
         ?int $id,
         Quiz $quiz,
         string $question,
         string $correctAnswer,
-        string $wrongAnswer1,
-        string $wrongAnswer2,
-        string $wrongAnswer3,
+        array $answers,
     ) {
         $this->id = $id;
         $this->quiz = $quiz;
         $this->question = $question;
         $this->correctAnswer = $correctAnswer;
-        $this->wrongAnswer1 = $wrongAnswer1;
-        $this->wrongAnswer2 = $wrongAnswer2;
-        $this->wrongAnswer3 = $wrongAnswer3;
+        $this->answers = $answers;
     }
 
     public static function create(
         Quiz $quiz,
         string $question,
         string $correctAnswer,
-        string $wrongAnswer1,
-        string $wrongAnswer2,
-        string $wrongAnswer3): self
-    {
+        array $answers,
+    ): self {
         return new self(
             null,
             $quiz,
             $question,
             $correctAnswer,
-            $wrongAnswer1,
-            $wrongAnswer2,
-            $wrongAnswer3,
+            $answers,
         );
     }
 
@@ -91,18 +77,8 @@ class Question
         return $this->correctAnswer;
     }
 
-    public function getWrongAnswer1(): string
+    public function getAnswers(): array
     {
-        return $this->wrongAnswer1;
-    }
-
-    public function getWrongAnswer2(): string
-    {
-        return $this->wrongAnswer2;
-    }
-
-    public function getWrongAnswer3(): string
-    {
-        return $this->wrongAnswer3;
+        return $this->answers;
     }
 }

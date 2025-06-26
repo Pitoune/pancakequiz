@@ -7,6 +7,7 @@ use App\BusinessLogic\UseCase\Command\AddQuestionsToQuizCommand\AddQuestionsToQu
 use App\BusinessLogic\UseCase\Command\AddQuestionsToQuizCommand\AddQuestionsToQuizCommandRequest;
 use App\Tests\unit\Mock\Adapter\Secondary\Gateway\Repository\Doctrine\InMemoryQuestionRepository;
 use App\Tests\unit\Mock\Adapter\Secondary\Gateway\Repository\Doctrine\InMemoryQuizRepository;
+use App\Tests\unit\Mock\Adapter\Secondary\Gateway\Service\NoShuffler;
 use PHPUnit\Framework\TestCase;
 
 class AddQuestionsToQuizCommandHandlerTest extends TestCase
@@ -16,6 +17,8 @@ class AddQuestionsToQuizCommandHandlerTest extends TestCase
     private InMemoryQuizRepository $quizRepository;
 
     private InMemoryQuestionRepository $questionRepository;
+
+    private NoShuffler $shuffler;
 
     public function testAddOneQuestionToQuiz(): void
     {
@@ -41,20 +44,25 @@ class AddQuestionsToQuizCommandHandlerTest extends TestCase
         $question = reset($questions);
         $this->assertEquals('quiz-token', $question->getQuiz()->getToken());
         $this->assertEquals('Question 1', $question->getQuestion());
-        $this->assertEquals('correct answer !', $question->getCorrectAnswer());
-        $this->assertEquals('wrong answer 1', $question->getWrongAnswer1());
-        $this->assertEquals('wrong answer 2', $question->getWrongAnswer2());
-        $this->assertEquals('wrong answer 3', $question->getWrongAnswer3());
+        $this->assertEquals('A', $question->getCorrectAnswer());
+        $this->assertEquals([
+            'A' => 'correct answer !',
+            'B' => 'wrong answer 1',
+            'C' => 'wrong answer 2',
+            'D' => 'wrong answer 3',
+        ], $question->getAnswers());
     }
 
     protected function setUp(): void
     {
         $this->quizRepository = new InMemoryQuizRepository();
         $this->questionRepository = new InMemoryQuestionRepository();
+        $this->shuffler = new NoShuffler();
 
         $this->addQuestionsToQuizCommandHandler = new AddQuestionsToQuizCommandHandler(
             $this->quizRepository,
             $this->questionRepository,
+            $this->shuffler,
         );
     }
 }

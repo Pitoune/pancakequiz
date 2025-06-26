@@ -7,6 +7,21 @@
 
     <p>{{ 'game.show.players_list'|trans({'%players%': viewModel.players|join(', ')}) }}</p>
 
-    <p>{{ 'game.show.join_link_message'|trans }}</p>
-    <a href="{{ url('game_join', {'token': viewModel.token}) }}">{{ url('game_join', {'token': viewModel.token}) }}</a>
+    <p>
+        {{ 'game.show.join_link_message'|trans }}
+        <a href="{{ url('game_join', {'token': viewModel.token}) }}">{{ url('game_join', {'token': viewModel.token}) }}</a>
+    </p>
+
+    {% if viewModel.question is empty %}
+        <p>
+            <a href="{{ path('game_next_question', {'token': viewModel.token}) }}">{{ 'game.show.next_question'|trans }}</a>
+        </p>
+    {% else %}
+        {{ viewModel.question.question }}<br>
+        <br>
+        A - {{ viewModel.question.answers.A }}<br>
+        B - {{ viewModel.question.answers.B }}<br>
+        C - {{ viewModel.question.answers.C }}<br>
+        D - {{ viewModel.question.answers.D }}<br>
+    {% endif %}
 {% endblock %}

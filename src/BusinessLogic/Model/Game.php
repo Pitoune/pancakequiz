@@ -4,6 +4,7 @@ namespace App\BusinessLogic\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToOne;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity]
@@ -21,6 +22,9 @@ class Game
 
     #[ManyToOne(targetEntity: 'Quiz', fetch: 'LAZY')]
     private Quiz $quiz;
+
+    #[OneToOne(targetEntity: 'Question', fetch: 'LAZY')]
+    private ?Question $currentQuestion = null;
 
     public function __construct(?int $id, string $token, Quiz $quiz)
     {
@@ -47,6 +51,16 @@ class Game
     public function getQuiz(): Quiz
     {
         return $this->quiz;
+    }
+
+    public function getCurrentQuestion(): ?Question
+    {
+        return $this->currentQuestion;
+    }
+
+    public function setCurrentQuestion(?Question $currentQuestion): void
+    {
+        $this->currentQuestion = $currentQuestion;
     }
 
     public function addPlayer(string $username): Player

@@ -3,6 +3,7 @@
 namespace App\Adapter\Secondary\Gateway\Repository\Doctrine;
 
 use App\BusinessLogic\Gateway\Repository\QuestionRepositoryInterface;
+use App\BusinessLogic\Model\Game;
 use App\BusinessLogic\Model\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,5 +24,18 @@ class QuestionRepository extends ServiceEntityRepository implements QuestionRepo
     public function all(): array
     {
         return $this->all();
+    }
+
+    public function allByGame(Game $game): array
+    {
+        $qb = $this->createQueryBuilder('q')
+            ->join('q.quiz', 'qz')
+            ->join(Game::class, 'g', 'WITH', 'g.quiz = qz')
+            ->where('g = :game')
+            ->orderBy('q.id', 'ASC')
+            ->setParameter('game', $game)
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }

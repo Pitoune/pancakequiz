@@ -11,4 +11,6 @@ class ShowGameViewModel
     public int $questionsCount;
 
     public array $players;
+
+    public array $question = [];
 }

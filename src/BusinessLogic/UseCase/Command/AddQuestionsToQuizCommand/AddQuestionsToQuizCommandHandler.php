@@ -4,6 +4,7 @@ namespace App\BusinessLogic\UseCase\Command\AddQuestionsToQuizCommand;
 
 use App\BusinessLogic\Gateway\Repository\QuestionRepositoryInterface;
 use App\BusinessLogic\Gateway\Repository\QuizRepositoryInterface;
+use App\BusinessLogic\Gateway\Service\ShufflerInterface;
 
 class AddQuestionsToQuizCommandHandler
 {
@@ -11,12 +12,16 @@ class AddQuestionsToQuizCommandHandler
 
     private QuestionRepositoryInterface $questionRepository;
 
+    private ShufflerInterface $shuffler;
+
     public function __construct(
         QuizRepositoryInterface $quizRepository,
         QuestionRepositoryInterface $questionRepository,
+        ShufflerInterface $shuffler,
     ) {
         $this->quizRepository = $quizRepository;
         $this->questionRepository = $questionRepository;
+        $this->shuffler = $shuffler;
     }
 
     public function handle(AddQuestionsToQuizCommandRequest $request): void
@@ -24,12 +29,29 @@ class AddQuestionsToQuizCommandHandler
         $quiz = $this->quizRepository->getOneByToken($request->quizToken);
 
         foreach ($request->questions as $question) {
-            $quest = $quiz->addQuestion(
-                $question['question'],
+            $answers = [
                 $question['correct_answer'],
                 $question['wrong_answer_1'],
                 $question['wrong_answer_2'],
                 $question['wrong_answer_3'],
+            ];
+            $correctAnswer = null;
+            $indexes = ['A', 'B', 'C', 'D'];
+            $indexedAnswers = [];
+
+            $shuffled = $this->shuffler->shuffle($answers);
+            foreach ($shuffled as $answer) {
+                $idx = array_splice($indexes, 0, 1);
+                $indexedAnswers[$idx[0]] = $answer;
+                if ($question['correct_answer'] === $answer) {
+                    $correctAnswer = $idx[0];
+                }
+            }
+
+            $quest = $quiz->addQuestion(
+                $question['question'],
+                $correctAnswer,
+                $indexedAnswers,
             );
             $this->questionRepository->save($quest);
         }

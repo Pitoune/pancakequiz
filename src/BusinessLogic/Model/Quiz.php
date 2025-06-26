@@ -57,9 +57,9 @@ class Quiz
         return $this->questionsPerParticipant;
     }
 
-    public function addQuestion(string $question, string $correctAnswer, string $wrongAnswer1, string $wrongAnswer2, string $wrongAnswer3): Question
+    public function addQuestion(string $question, string $correctAnswer, array $answers): Question
     {
-        return Question::create($this, $question, $correctAnswer, $wrongAnswer1, $wrongAnswer2, $wrongAnswer3);
+        return Question::create($this, $question, $correctAnswer, $answers);
     }
 
     public function addGame(string $token): Game
