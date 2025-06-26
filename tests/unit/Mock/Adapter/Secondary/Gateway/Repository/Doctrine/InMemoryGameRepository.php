@@ -20,4 +20,15 @@ class InMemoryGameRepository implements GameRepositoryInterface
     {
         return $this->games[$id] ?? null;
     }
+
+    public function getByToken(string $token): ?Game
+    {
+        foreach ($this->games as $game) {
+            if ($game->getToken() === $token) {
+                return $game;
+            }
+        }
+
+        return null;
+    }
 }

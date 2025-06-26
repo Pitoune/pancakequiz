@@ -4,4 +4,9 @@
     <h1>{{ viewModel.name }}</h1>
 
     <p>{{ 'game.show.questions_count'|trans({'%questionsCount%': viewModel.questionsCount}) }}</p>
+
+    <p>{{ 'game.show.players_list'|trans({'%players%': viewModel.players|join(', ')}) }}</p>
+
+    <p>{{ 'game.show.join_link_message'|trans }}</p>
+    <a href="{{ url('game_join', {'token': viewModel.token}) }}">{{ url('game_join', {'token': viewModel.token}) }}</a>
 {% endblock %}

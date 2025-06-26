@@ -24,4 +24,9 @@ class GameRepository extends ServiceEntityRepository implements GameRepositoryIn
     {
         return $this->find($id);
     }
+
+    public function getByToken(string $token): ?Game
+    {
+        return $this->findOneBy(['token' => $token]);
+    }
 }

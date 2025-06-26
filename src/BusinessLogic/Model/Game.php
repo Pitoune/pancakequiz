@@ -48,4 +48,9 @@ class Game
     {
         return $this->quiz;
     }
+
+    public function addPlayer(string $username): Player
+    {
+        return new Player(null, $this, $username);
+    }
 }

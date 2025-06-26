@@ -22,6 +22,7 @@ class ShowGameQueryHandler
         $viewModel->token = $game['token'];
         $viewModel->name = $game['name'];
         $viewModel->questionsCount = $game['questionsCount'];
+        $viewModel->players = explode(',', $game['players']);
 
         return $viewModel;
     }

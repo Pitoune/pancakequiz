@@ -9,4 +9,6 @@ interface GameRepositoryInterface
     public function save(Game $game): void;
 
     public function get(int $id): ?Game;
+
+    public function getByToken(string $token): ?Game;
 }
